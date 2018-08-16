@@ -3,6 +3,7 @@ import Order from './Order';
 import Inventory from './Inventory';
 import Menu from './Menu';
 import sampleFishes from '../sample-fishes';
+import base from '../base';
 
 
 class App extends React.Component {
@@ -10,6 +11,21 @@ class App extends React.Component {
     fishes: {},
     order: {}
   };
+
+  componentDidMount() {
+    this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    })
+  }
+
+  componentDidUpdate() {
+    console.log("updtateddd ")
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   addFish = (fish) => {
     const fishes = { ...this.state.fishes };
