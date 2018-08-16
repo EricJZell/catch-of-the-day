@@ -5,6 +5,9 @@ class Order extends React.Component {
   renderOrder = (key) => {
     const fish = this.props.fishes[key];
     const count = this.props.order[key];
+    // Order data is in localstorage, and get loaded faster than fishes data.
+    // Therefore, we need this line below for when the order state is set but fishes isn't yet
+    if(!fish) return null;
     const isAvailable = fish.status === 'available';
     if(!isAvailable) {
       return (
