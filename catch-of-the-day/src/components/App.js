@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Order from './Order';
 import Inventory from './Inventory';
 import Menu from './Menu';
@@ -10,6 +11,10 @@ class App extends React.Component {
   state = {
     fishes: {},
     order: {}
+  };
+
+  static propTypes = {
+    match: PropTypes.object
   };
 
   componentDidMount() {
@@ -47,6 +52,7 @@ class App extends React.Component {
 
   deleteFish = (key) => {
     const fishes = { ...this.state.fishes };
+    // Need to set to null because of weird firebase quirk (oppposed to using js delete)
     fishes[key] = null;
     this.setState({fishes: fishes});
   }
